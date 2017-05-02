@@ -1,9 +1,15 @@
 module Favxparse
   module Twitter
     class TweetList
+      attr_reader :user, :page_size
+
       def initialize(user, page_size: 100)
         @user = user
         @page_size = page_size
+      end
+
+      def empty?
+        Tweet.connection.llen(key) == 0
       end
 
       def each
@@ -20,8 +26,6 @@ module Favxparse
       end
 
       private
-
-      attr_reader :user, :page_size
 
       def key
         @key ||= "USER:#{user}"

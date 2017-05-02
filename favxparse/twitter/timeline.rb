@@ -26,6 +26,12 @@ module Favxparse
           options.update(max_id: tweets.last.id)
         end
       end
+
+      private
+
+      def key
+        @key ||= "USER:#{user}"
+      end
     end
   end
 end

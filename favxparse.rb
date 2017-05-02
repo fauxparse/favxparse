@@ -6,6 +6,7 @@ Bundler.require
 require 'dotenv/load'
 require 'active_support'
 require 'active_support/dependencies'
+require 'active_support/core_ext/string'
 
 ActiveSupport::Dependencies.autoload_paths << '.'
 
