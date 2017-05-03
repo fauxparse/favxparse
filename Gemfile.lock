@@ -41,6 +41,7 @@ GEM
     redis (3.3.3)
     simple_oauth (0.3.1)
     slop (3.6.0)
+    thor (0.19.4)
     thread_safe (0.3.6)
     twitter (6.1.0)
       addressable (~> 2.5)
@@ -66,6 +67,7 @@ DEPENDENCIES
   dotenv
   pry
   redis
+  thor
   twitter
 
 RUBY VERSION

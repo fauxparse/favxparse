@@ -12,3 +12,5 @@ ActiveSupport::Dependencies.autoload_paths << '.'
 
 module Favxparse
 end
+
+Favxparse::Cli.start if __FILE__ == $0
