@@ -3,7 +3,7 @@ module Favxparse
     START_TEXT = :start
     END_TEXT = :end
 
-    TOKEN_EXP = %r{(?:https?://[\w\./]+)|(([@#]?(?:\w+)(?:['’]\w+)*\b|((?:\.\.\.|\S)\s*|\n+)))}
+    TOKEN_EXP = %r{(?:https?://[\w\./]+)|(([@#]?(?:\w+)(?:['’]\w+)*\b|((?:\.\.\.|\S)[ ]*|\n+)))}
 
     END_SENTENCE = /[\.\!\?‽…]+\s*/
     SPACE_BEFORE = /\A[\w$&#@>\+=\*—“‘\(\[\{]/
