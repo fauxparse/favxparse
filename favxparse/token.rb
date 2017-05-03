@@ -7,6 +7,6 @@ module Favxparse
 
     END_SENTENCE = /[\.\!\?‽…]+\s*/
     SPACE_BEFORE = /\A[\w$&#@>\+=—“‘\(\[\{]/
-    SPACE_AFTER = /[\.\?\!‽…\w&#@>\+=”’\)\]\}]\z/
+    SPACE_AFTER = /[\.,:\?\!‽…\w&#@>\+=”’\)\]\}]\z/
   end
 end

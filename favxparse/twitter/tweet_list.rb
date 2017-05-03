@@ -20,7 +20,7 @@ module Favxparse
           ids = Tweet.connection.lrange(key, start, start + page_size - 1)
           break if ids.empty?
 
-          ids.each { |id| yield Tweet.find(id) }
+          ids.each { |id| yield Tweet.find(user, id) }
           start += page_size
         end
       end

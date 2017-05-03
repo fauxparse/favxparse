@@ -7,7 +7,7 @@ module Favxparse
 
       def call
         timeline.each do |tweet|
-          break if Tweet.exists?(tweet.id)
+          break if Tweet.exists?(source, tweet.id)
           Tweet.create(user: source, id: tweet.id, text: tweet.text)
         end
       end

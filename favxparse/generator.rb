@@ -1,9 +1,8 @@
 module Favxparse
   class Generator
-    def initialize(user, &block)
+    def initialize(user)
       @formatter = Formatter.new
       @dictionary = Dictionary.new(user, formatter)
-      @validator = block || ->(tweet) { true }
     end
 
     def generate
@@ -20,7 +19,7 @@ module Favxparse
     def valid?(tweet)
       !tweet.empty? &&
         tweet.length < 140 &&
-        @validator.call(tweet)
+        !Favxparse::Twitter::Tweet.looks_like_original?(dictionary.user, tweet)
     end
 
     def raw

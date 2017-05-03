@@ -30,7 +30,7 @@ module Favxparse
       @learning = {}
 
       tweets.each do |tweet|
-        learn(Tokeniser.new(tweet).tokens)
+        learn(Tokeniser.new(tweet.text).tokens)
       end
     end
 

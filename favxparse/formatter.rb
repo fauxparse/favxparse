@@ -22,14 +22,15 @@ module Favxparse
         previous = nil
         stack = tokens.each.with_object([:start]) do |token, stack|
           next if ignore_closing?(token, stack)
+          if token =~ /\n/
+            close_context(stack.pop) { |t| result << t } while stack.any?
+          end
           formatted = formatter(stack, token).format(token)
+          formatted.gsub!(/ +$/, '') unless formatted =~ Token::SPACE_AFTER
           result << ' ' if should_insert_space?(previous, formatted)
           result << formatted if formatted.length > 0
           previous = formatted
           update_stack(stack, token) { |t| result << t }
-          if token =~ /\n/
-            close_context(stack.pop) { |t| result << t } while stack.any?
-          end
         end
         close_context(stack.pop) { |t| result << t } while stack.any?
       end.join('').strip
@@ -93,7 +94,8 @@ module Favxparse
     def should_insert_space?(previous, token)
       return false unless previous.present? && token.present?
       previous =~ Token::SPACE_AFTER &&
-        (token =~ Token::SPACE_BEFORE || token.first.ord > 0x10000)
+        (token =~ Token::SPACE_BEFORE || token.first.ord > 0x10000) &&
+        !(previous =~ /:\s*\z/ && token =~ /\A\d/)
     end
 
     def ignore_closing?(token, stack)
