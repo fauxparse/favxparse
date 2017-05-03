@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Tweets from @<%= @user %></title>
+    <link rel="stylesheet" type="text/css" href="/normalize.css">
+    <link rel="stylesheet" type="text/css" href="/skeleton.css">
+    <link rel="stylesheet" type="text/css" href="/favxparse.css">
+  </head>
+  <body>
+    <main class="container">
+      <header>
+        <h1 class="twelve columns">Tweets from @<%= @user %></h1>
+      </header>
+      <article>
+        <p class="twelve columns"><%= @tweet %></p>
+      </article>
+      <footer>
+        <a href="/" class="button button-primary">Anvther</a>
+      </footer>
+    </main>
+  </body>
+</html>
