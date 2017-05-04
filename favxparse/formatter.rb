@@ -19,18 +19,15 @@ module Favxparse
 
     def format(tokens)
       [].tap do |result|
-        previous = nil
         stack = tokens.each.with_object([:start]) do |token, stack|
-          next if ignore_closing?(token, stack)
+          next if ignore_closing?(token.to_s, stack)
           if token =~ /\n/
             close_context(stack.pop) { |t| result << t } while stack.any?
           end
-          formatted = formatter(stack, token).format(token)
-          formatted.gsub!(/ +$/, '') unless formatted =~ Token::SPACE_AFTER
-          result << ' ' if should_insert_space?(previous, formatted)
-          result << formatted if formatted.length > 0
-          previous = formatted
-          update_stack(stack, token) { |t| result << t }
+          formatted = formatter(stack, token).format(token.to_s)
+          result << ' ' if token.space_before?
+          result << formatted
+          update_stack(stack, token.to_s) { |t| result << t }
         end
         close_context(stack.pop) { |t| result << t } while stack.any?
       end.join('').strip
@@ -38,11 +35,11 @@ module Favxparse
 
     def learn(tokens)
       tokens.each.with_object([:start]) do |token, stack|
-        learning = (training[token.downcase] ||= {})
+        learning = (training[token.to_s.downcase] ||= {})
         stack.each do |context|
           (learning[context] ||= []).push(match_format(token))
         end
-        update_stack(stack, token)
+        update_stack(stack, token.to_s)
       end
       self
     end
@@ -59,7 +56,7 @@ module Favxparse
     private
 
     def match_format(token)
-      self.class.formatters.detect { |f| f.match?(token) }
+      self.class.formatters.detect { |f| f.match?(token.to_s) }
     end
 
     def update_stack(stack, token, &block)
@@ -85,7 +82,7 @@ module Favxparse
 
     def formatter(stack, token)
       stack.reverse.each do |context|
-        learning = (training[token.downcase] || {})[context] || []
+        learning = (training[token.to_s.downcase] || {})[context] || []
         return learning.sample if learning.any?
       end
       return self.class.formatters.last

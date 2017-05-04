@@ -12,7 +12,7 @@ module Favxparse
 
     def choose(context)
       (training[context] || [Token::END_TEXT]).sample.tap do |token|
-        rotate_context(context, token)
+        rotate_context(context, token.to_s)
       end
     end
 
@@ -48,7 +48,7 @@ module Favxparse
 
     def add(context, token)
       (training[context[0..-1]] ||= []).push(token)
-      rotate_context(context, token)
+      rotate_context(context, token.to_s)
     end
 
     def rotate_context(context, token)
