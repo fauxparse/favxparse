@@ -9,7 +9,8 @@ module Favxparse
           count: 200,
           trim_user: true,
           exclude_replies: true,
-          include_rts: false
+          include_rts: false,
+          tweet_mode: :extended
         }
       end
 

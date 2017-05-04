@@ -8,13 +8,14 @@ module Favxparse
       def call
         timeline.each do |tweet|
           break if Tweet.exists?(source, tweet.id)
-          Tweet.create(user: source, id: tweet.id, text: tweet.text)
+          text = tweet.attrs[:full_text] || tweet.attrs[:text]
+          Tweet.create(user: source, id: tweet.id, text: text)
         end
       end
 
       private
 
-      attr_accessor :source, :options
+      attr_accessor :source
 
       def timeline
         @timeline ||= Timeline.new(source)
