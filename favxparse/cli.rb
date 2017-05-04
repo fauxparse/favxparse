@@ -20,9 +20,12 @@ module Favxparse
       aliases: '-u',
       desc: 'User to impersonate',
       default: ENV['TWITTER_SOURCE']
+    method_options force: false
     def update
       puts "Updating cache for #{options[:user]}..."
-      Favxparse::Twitter::UpdateCache.new(options[:user]).call
+      Favxparse::Twitter::UpdateCache.new(
+        options[:user], force: options[:force]
+      ).call
     end
   end
 end

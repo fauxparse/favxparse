@@ -12,8 +12,8 @@ module Favxparse
       def save
         return false unless id
         key = "TWEET:#{user}:#{id}"
+        connection.rpush("USER:#{user}", id) unless self.class.exists?(user, id)
         connection.set(key, text)
-        connection.rpush("USER:#{user}", id)
         connection.hset("HASH:#{user}", digest, 1)
       end
 
