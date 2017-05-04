@@ -1,7 +1,7 @@
 module Favxparse
   module Token
     class Word < Base
-      MATCH = /\w+(['’]\w+)*/
+      MATCH = /[[:alpha:]\d_]+(['’][[:alpha:]]+)*/
     end
   end
 end

@@ -16,6 +16,14 @@ module Favxparse
         @space_before
       end
 
+      def open?
+        false
+      end
+
+      def ==(other)
+        to_s == other.to_s
+      end
+
       alias :to_s :text
 
       delegate :length, to: :text

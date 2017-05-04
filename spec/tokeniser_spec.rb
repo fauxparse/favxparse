@@ -19,12 +19,13 @@ describe Favxparse::Tokeniser do
           word
           word
           single_character
+          end
         ]
       end
 
       it 'saves space information' do
         expect(tokens.map(&:space_before?)).to eq [
-          false, true, true, true, false
+          false, true, true, true, false, false
         ]
       end
     end
@@ -40,21 +41,22 @@ describe Favxparse::Tokeniser do
 
       it 'produces the correct symbol types' do
         expect(token_types).to eq %i[
-          single_character
+          opening
           word
           word
           word
-          single_character
+          closing
           new_line
           word
           single_character
-          single_character
+          opening
           word
-          single_character
+          closing
           new_line
           word
           single_character
           emoji
+          end
         ]
       end
     end

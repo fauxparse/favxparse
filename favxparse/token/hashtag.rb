@@ -1,7 +1,7 @@
 module Favxparse
   module Token
     class Hashtag < Base
-      MATCH = /#\w+/
+      MATCH = /#[[:alpha:]\d_]+/
     end
   end
 end

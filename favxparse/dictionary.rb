@@ -2,22 +2,21 @@ module Favxparse
   class Dictionary
     attr_reader :user, :formatter, :depth
 
-    def initialize(user, formatter = Formatter.new, depth: 2)
+    def initialize(user, depth: 2)
       @user = user
       @depth = depth
       @training = {}
-      @formatter = formatter
       build_from_tweets
     end
 
     def choose(context)
-      (training[context] || [Token::END_TEXT]).sample.tap do |token|
+      (training[context] || [Token::End.new]).sample.tap do |token|
         rotate_context(context, token.to_s)
       end
     end
 
     def initial_context
-      [Token::START_TEXT] * depth
+      [Token::Start.new.to_s] * depth
     end
 
     private
@@ -39,10 +38,9 @@ module Favxparse
     end
 
     def learn(tokens)
-      (tokens + [Token::END_TEXT]).each.with_object(initial_context) do |token, context|
+      (tokens + [Token::End.new]).each.with_object(initial_context) do |token, context|
         add(context, token)
       end
-      formatter.learn(tokens)
       self
     end
 

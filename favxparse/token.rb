@@ -1,8 +1,5 @@
 module Favxparse
   module Token
-    START_TEXT = :start
-    END_TEXT = :end
-
     TOKEN_EXP = %r{(?:https?://[\w\./]+)|(([@#]?(?:\w+)(?:['’]\w+)*\b|((?:\.\.\.|\S)[ ]*|\n+)))}
 
     END_SENTENCE = /[\.\!\?‽…]+\s*/
@@ -21,6 +18,8 @@ module Favxparse
         Word,
         Space,
         Emoji,
+        Closing,
+        Opening,
         SingleCharacter
       ]
     end

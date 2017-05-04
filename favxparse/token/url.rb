@@ -1,7 +1,7 @@
 module Favxparse
   module Token
     class Url < Base
-      MATCH = %r{https?://[\w\./#]+}
+      MATCH = %r{https?://[[:alpha:]\d\-_\./#]+}i
 
       def skip?
         true

@@ -3,6 +3,10 @@ module Favxparse
     class Space < Base
       MATCH = /[ ]+/
 
+      def initialize(text = ' ')
+        super(text)
+      end
+
       def skip?
         true
       end

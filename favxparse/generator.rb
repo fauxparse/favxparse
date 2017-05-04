@@ -1,13 +1,12 @@
 module Favxparse
   class Generator
     def initialize(user)
-      @formatter = Formatter.new
-      @dictionary = Dictionary.new(user, formatter)
+      @dictionary = Dictionary.new(user)
     end
 
     def generate
       loop do
-        tweet = formatter.format(raw)
+        tweet = raw.join
         return tweet if valid?(tweet)
       end
     end
@@ -23,12 +22,12 @@ module Favxparse
     end
 
     def raw
-      [].tap do |tokens|
+      TokenList.new.tap do |tokens|
         context = dictionary.initial_context
         loop do
           token = dictionary.choose(context)
-          break if token == Token::END_TEXT
           tokens << token
+          break if Token::End === token
         end
       end
     end

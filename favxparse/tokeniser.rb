@@ -10,6 +10,8 @@ module Favxparse
       @tokens ||= tokenise(@text)
     end
 
+    delegate :each, to: :tokens
+
     private
 
     def tokenise(text)
@@ -21,6 +23,7 @@ module Favxparse
           tokens << token
           index += token.length
         end
+        tokens << Token::End.new
         tokens.reject!(&:skip?)
       end
     end
